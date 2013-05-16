@@ -37,7 +37,6 @@
             this.buttonRemoveIngredient = new System.Windows.Forms.Button();
             this.textRecipeName = new System.Windows.Forms.TextBox();
             this.textAddedIngredient = new System.Windows.Forms.TextBox();
-            this.buttonLoadRecipe = new System.Windows.Forms.Button();
             this.listBoxIngredients = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
@@ -123,16 +122,6 @@
             this.textAddedIngredient.Size = new System.Drawing.Size(157, 20);
             this.textAddedIngredient.TabIndex = 9;
             // 
-            // buttonLoadRecipe
-            // 
-            this.buttonLoadRecipe.Location = new System.Drawing.Point(252, 13);
-            this.buttonLoadRecipe.Name = "buttonLoadRecipe";
-            this.buttonLoadRecipe.Size = new System.Drawing.Size(46, 23);
-            this.buttonLoadRecipe.TabIndex = 10;
-            this.buttonLoadRecipe.Text = "Load";
-            this.buttonLoadRecipe.UseVisualStyleBackColor = true;
-            this.buttonLoadRecipe.Click += new System.EventHandler(this.button1_Click);
-            // 
             // listBoxIngredients
             // 
             this.listBoxIngredients.FormattingEnabled = true;
@@ -147,7 +136,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(333, 383);
             this.Controls.Add(this.listBoxIngredients);
-            this.Controls.Add(this.buttonLoadRecipe);
             this.Controls.Add(this.textAddedIngredient);
             this.Controls.Add(this.textRecipeName);
             this.Controls.Add(this.buttonRemoveIngredient);
@@ -176,7 +164,6 @@
         private System.Windows.Forms.Button buttonRemoveIngredient;
         private System.Windows.Forms.TextBox textRecipeName;
         private System.Windows.Forms.TextBox textAddedIngredient;
-        private System.Windows.Forms.Button buttonLoadRecipe;
         private System.Windows.Forms.ListBox listBoxIngredients;
     }
 }

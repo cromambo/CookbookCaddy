@@ -21,13 +21,47 @@ namespace CookbookCaddy
 
         private void requestButton_Click(object sender, EventArgs e)
         {
-            Recipe foundRecipe = new Recipe();
-            foundRecipe = getRecipeFromDialog();
-            //need to not fill if recipe was cancelled, not sure how to indicate that
-            FillWithRecipe(foundRecipe); 
+            RecipeEditor recipeEditorDialogNew = new RecipeEditor();
+
+            ShowRecipeDialog(recipeEditorDialogNew);
         }
 
-        private void FillWithRecipe(Recipe foundRecipe)
+        private void buttonEditRecipe_Click(object sender, EventArgs e)
+        {
+            Recipe temprec = new Recipe();
+            temprec = myCookbook.GetRecipe();
+            temprec.Title = "Editing";
+            //todo: get a recipe from cookbook to send
+
+            RecipeEditor recipeEditorDialogEditing = new RecipeEditor(temprec);
+
+            ShowRecipeDialog(recipeEditorDialogEditing);
+        }
+
+        private void ShowRecipeDialog(RecipeEditor recipeEditorDialog)
+        {
+            if (recipeEditorDialog.ShowDialog() == DialogResult.OK)
+            {
+                FillRecipeDisplay(recipeEditorDialog.editorRecipe);
+
+                //todo: add new/edited recipe to cookbook here
+            }
+            else //cancel
+            {
+                EmptyRecipeDisplay();
+            }
+
+            recipeEditorDialog.Dispose();
+        }
+
+        private void EmptyRecipeDisplay()
+        {
+
+            titleTextBox.Text = "";
+            ItemsListBox.Items.Clear();
+        }
+
+        private void FillRecipeDisplay(Recipe foundRecipe)
         {
             titleTextBox.Text = foundRecipe.Title;
 
@@ -38,23 +72,6 @@ namespace CookbookCaddy
             }
         }
 
-        private Recipe getRecipeFromDialog()
-        {
-            Recipe enteredRecipe = new Recipe();
-            RecipeEditor recipeEditorDialog = new RecipeEditor();
-            if (recipeEditorDialog.ShowDialog() == DialogResult.OK)
-            {
-                enteredRecipe = recipeEditorDialog.editorRecipe;
-            }
-            else
-            {
-                //something for cancelled?
-            }
-
-            recipeEditorDialog.Dispose();
-
-            return enteredRecipe;
-        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -70,5 +87,7 @@ namespace CookbookCaddy
         {
 
         }
+
+
     }
 }

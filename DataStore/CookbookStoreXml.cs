@@ -64,7 +64,7 @@ namespace CookbookCaddy.DataStore
 
         private string WebServiceMock()
         {
-            return "<Recipe Title='Fava Bean Soup'><Ingredients><Item>Fava Beans</Item><Item>Water</Item></Ingredients></Recipe>";
+            return "<Recipe Title='Fava Bean Soup'><Ingredients><Item>Fava Beans</Item><Item>Water</Item><Item>Salt</Item></Ingredients></Recipe>";
         }
 
         public override bool SaveRecipe()

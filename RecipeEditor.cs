@@ -15,9 +15,15 @@ namespace CookbookCaddy
         private Cookbook myCookbook = new Cookbook();
         public Recipe editorRecipe { get; set; }
 
+        public RecipeEditor(Recipe existingRecipe)
+        {
+            editorRecipe = existingRecipe;
+            InitializeComponent();
+        }
 
         public RecipeEditor()
         {
+            editorRecipe = myCookbook.GetRecipe(); //mock
             InitializeComponent();
         }
 
@@ -39,6 +45,7 @@ namespace CookbookCaddy
         private void buttonSaveRecipe_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
+            editorRecipe.Title = textRecipeName.Text;
             Close();
         }
 
@@ -51,7 +58,8 @@ namespace CookbookCaddy
 
         private void RecipeEditor_Load(object sender, EventArgs e)
         {
-            editorRecipe = myCookbook.GetRecipe(); //mock for now just to have a recipe
+            //i could maybe load the current recipe from the sender instead of passing to overloaded constructor?
+
             textRecipeName.Text = editorRecipe.Title;
             foreach(string ingred in editorRecipe.Items)
             {
@@ -62,13 +70,21 @@ namespace CookbookCaddy
 
         private void buttonAddIngredient_Click(object sender, EventArgs e)
         {
-            editorRecipe.Items.Add(textAddedIngredient.Text);
-            listBoxIngredients.Items.Add(textAddedIngredient.Text);
+            if (textAddedIngredient.Text.Length > 0)
+            {
+                editorRecipe.Items.Add(textAddedIngredient.Text);
+                listBoxIngredients.Items.Add(textAddedIngredient.Text);
+            }
         }
 
         private void buttonRemoveIngredient_Click(object sender, EventArgs e)
         {
-           // editorRecipe.Items.Remove(listBoxIngredients.SelectedItem.ToString());
+            if (listBoxIngredients.SelectedIndex >= 0)
+            {
+               // if(listBoxIngredients.Items.Contains(
+                editorRecipe.Items.Remove(listBoxIngredients.SelectedIndex.ToString());
+                listBoxIngredients.Items.RemoveAt(listBoxIngredients.SelectedIndex);
+            }
         }
 
     }
