@@ -34,5 +34,10 @@ namespace CookbookCaddy
         {
 
         }
+
+        private void titleTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
