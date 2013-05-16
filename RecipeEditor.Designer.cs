@@ -30,7 +30,6 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.listViewIngredients = new System.Windows.Forms.ListView();
             this.label3 = new System.Windows.Forms.Label();
             this.buttonSaveRecipe = new System.Windows.Forms.Button();
             this.buttonCancelRecipeEditing = new System.Windows.Forms.Button();
@@ -38,6 +37,8 @@
             this.buttonRemoveIngredient = new System.Windows.Forms.Button();
             this.textRecipeName = new System.Windows.Forms.TextBox();
             this.textAddedIngredient = new System.Windows.Forms.TextBox();
+            this.buttonLoadRecipe = new System.Windows.Forms.Button();
+            this.listBoxIngredients = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // label1
@@ -58,14 +59,6 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Add Ingredient";
             // 
-            // listViewIngredients
-            // 
-            this.listViewIngredients.Location = new System.Drawing.Point(89, 81);
-            this.listViewIngredients.Name = "listViewIngredients";
-            this.listViewIngredients.Size = new System.Drawing.Size(157, 199);
-            this.listViewIngredients.TabIndex = 2;
-            this.listViewIngredients.UseCompatibleStateImageBehavior = false;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -83,6 +76,7 @@
             this.buttonSaveRecipe.TabIndex = 4;
             this.buttonSaveRecipe.Text = "Save";
             this.buttonSaveRecipe.UseVisualStyleBackColor = true;
+            this.buttonSaveRecipe.Click += new System.EventHandler(this.buttonSaveRecipe_Click);
             // 
             // buttonCancelRecipeEditing
             // 
@@ -92,6 +86,7 @@
             this.buttonCancelRecipeEditing.TabIndex = 5;
             this.buttonCancelRecipeEditing.Text = "Cancel";
             this.buttonCancelRecipeEditing.UseVisualStyleBackColor = true;
+            this.buttonCancelRecipeEditing.Click += new System.EventHandler(this.buttonCancelRecipeEditing_Click);
             // 
             // buttonAddIngredient
             // 
@@ -101,6 +96,7 @@
             this.buttonAddIngredient.TabIndex = 6;
             this.buttonAddIngredient.Text = "+";
             this.buttonAddIngredient.UseVisualStyleBackColor = true;
+            this.buttonAddIngredient.Click += new System.EventHandler(this.buttonAddIngredient_Click);
             // 
             // buttonRemoveIngredient
             // 
@@ -110,6 +106,7 @@
             this.buttonRemoveIngredient.TabIndex = 7;
             this.buttonRemoveIngredient.Text = "-";
             this.buttonRemoveIngredient.UseVisualStyleBackColor = true;
+            this.buttonRemoveIngredient.Click += new System.EventHandler(this.buttonRemoveIngredient_Click);
             // 
             // textRecipeName
             // 
@@ -117,6 +114,7 @@
             this.textRecipeName.Name = "textRecipeName";
             this.textRecipeName.Size = new System.Drawing.Size(157, 20);
             this.textRecipeName.TabIndex = 8;
+            this.textRecipeName.TextChanged += new System.EventHandler(this.textRecipeName_TextChanged);
             // 
             // textAddedIngredient
             // 
@@ -125,11 +123,31 @@
             this.textAddedIngredient.Size = new System.Drawing.Size(157, 20);
             this.textAddedIngredient.TabIndex = 9;
             // 
+            // buttonLoadRecipe
+            // 
+            this.buttonLoadRecipe.Location = new System.Drawing.Point(252, 13);
+            this.buttonLoadRecipe.Name = "buttonLoadRecipe";
+            this.buttonLoadRecipe.Size = new System.Drawing.Size(46, 23);
+            this.buttonLoadRecipe.TabIndex = 10;
+            this.buttonLoadRecipe.Text = "Load";
+            this.buttonLoadRecipe.UseVisualStyleBackColor = true;
+            this.buttonLoadRecipe.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // listBoxIngredients
+            // 
+            this.listBoxIngredients.FormattingEnabled = true;
+            this.listBoxIngredients.Location = new System.Drawing.Point(89, 81);
+            this.listBoxIngredients.Name = "listBoxIngredients";
+            this.listBoxIngredients.Size = new System.Drawing.Size(157, 186);
+            this.listBoxIngredients.TabIndex = 11;
+            // 
             // RecipeEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(310, 383);
+            this.ClientSize = new System.Drawing.Size(333, 383);
+            this.Controls.Add(this.listBoxIngredients);
+            this.Controls.Add(this.buttonLoadRecipe);
             this.Controls.Add(this.textAddedIngredient);
             this.Controls.Add(this.textRecipeName);
             this.Controls.Add(this.buttonRemoveIngredient);
@@ -137,11 +155,11 @@
             this.Controls.Add(this.buttonCancelRecipeEditing);
             this.Controls.Add(this.buttonSaveRecipe);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.listViewIngredients);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "RecipeEditor";
             this.Text = "RecipeEditor";
+            this.Load += new System.EventHandler(this.RecipeEditor_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -151,7 +169,6 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ListView listViewIngredients;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button buttonSaveRecipe;
         private System.Windows.Forms.Button buttonCancelRecipeEditing;
@@ -159,5 +176,7 @@
         private System.Windows.Forms.Button buttonRemoveIngredient;
         private System.Windows.Forms.TextBox textRecipeName;
         private System.Windows.Forms.TextBox textAddedIngredient;
+        private System.Windows.Forms.Button buttonLoadRecipe;
+        private System.Windows.Forms.ListBox listBoxIngredients;
     }
 }

@@ -21,13 +21,39 @@ namespace CookbookCaddy
 
         private void requestButton_Click(object sender, EventArgs e)
         {
-            Recipe foundRecipe = myCookbook.GetRecipe();
+            Recipe foundRecipe = new Recipe();
+            foundRecipe = getRecipeFromDialog();
+            //need to not fill if recipe was cancelled, not sure how to indicate that
+            FillWithRecipe(foundRecipe); 
+        }
+
+        private void FillWithRecipe(Recipe foundRecipe)
+        {
             titleTextBox.Text = foundRecipe.Title;
 
+            ItemsListBox.Items.Clear();
             foreach (string item in foundRecipe.Items)
             {
                 ItemsListBox.Items.Add(item);
             }
+        }
+
+        private Recipe getRecipeFromDialog()
+        {
+            Recipe enteredRecipe = new Recipe();
+            RecipeEditor recipeEditorDialog = new RecipeEditor();
+            if (recipeEditorDialog.ShowDialog() == DialogResult.OK)
+            {
+                enteredRecipe = recipeEditorDialog.editorRecipe;
+            }
+            else
+            {
+                //something for cancelled?
+            }
+
+            recipeEditorDialog.Dispose();
+
+            return enteredRecipe;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -36,6 +62,11 @@ namespace CookbookCaddy
         }
 
         private void titleTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ItemsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

@@ -68,6 +68,7 @@
             this.ItemsListBox.Name = "ItemsListBox";
             this.ItemsListBox.Size = new System.Drawing.Size(120, 95);
             this.ItemsListBox.TabIndex = 3;
+            this.ItemsListBox.SelectedIndexChanged += new System.EventHandler(this.ItemsListBox_SelectedIndexChanged);
             // 
             // requestButton
             // 
