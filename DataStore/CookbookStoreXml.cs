@@ -10,8 +10,13 @@ namespace CookbookCaddy.DataStore
 {
     public class CookbookStoreXml : CookbookStoreBase
     {
+        private string _fileName;
 
-        
+        public CookbookStoreXml(string fileName)
+        {
+            _fileName = fileName;
+        }
+
         public override Recipe GetRecipe()
         {
             return GetRecipeByXmlDom();
@@ -72,9 +77,29 @@ namespace CookbookCaddy.DataStore
             throw new NotImplementedException();
         }
 
-        public override bool UpdateRecipe()
+        public override bool UpdateRecipe(Recipe updatedRecipe)
         {
-            throw new NotImplementedException();
+            if  (!File.Exists(_fileName))
+                createXmlStore(_fileName);
+
+            //remove this line to read document and update
+            return true;
+            
+            using (FileStream fs = File.OpenRead(_fileName))
+            {
+                
+            }
+        }
+
+        private void createXmlStore(string fileName)
+        {
+            using (XmlWriter writer = XmlWriter.Create(fileName))
+            {
+                writer.WriteStartDocument();
+                writer.WriteStartElement("Cookbook");
+                writer.WriteEndElement();
+                writer.WriteEndDocument();
+            }
         }
 
         public override bool DeleteRecipe()

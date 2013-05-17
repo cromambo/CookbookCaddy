@@ -46,12 +46,7 @@ namespace CookbookCaddy
 
                 //todo: add new/edited recipe to cookbook here
             }
-            else //cancel
-            {
-                EmptyRecipeDisplay();
-            }
-
-            recipeEditorDialog.Dispose();
+           
         }
 
         private void EmptyRecipeDisplay()
@@ -86,6 +81,11 @@ namespace CookbookCaddy
         private void ItemsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            myCookbook.UpdateRecipe(new Recipe());
         }
 
 
