@@ -8,14 +8,14 @@ namespace CookbookCaddy.DataStore
 {
     public abstract class CookbookStoreBase
     {
-        public static CookbookStoreBase CreateCookbookStore()
+        public static CookbookStoreBase CreateCookbookStore(string fileName)
         {
-            return new CookbookStoreXml();
+            return new CookbookStoreXml(fileName);
         }
 
         public abstract Recipe GetRecipe();
         public abstract bool SaveRecipe();
-        public abstract bool UpdateRecipe();
+        public abstract bool UpdateRecipe(Recipe updatedRecipe);
         public abstract bool DeleteRecipe();
 
     }
