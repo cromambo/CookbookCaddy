@@ -10,5 +10,10 @@ namespace CookbookCaddy
     {
         public List<string> Items;
         public string Title { get; set; }
+
+        public Recipe()
+        {
+            Items = new List<string>();
+        }
     }
 }
