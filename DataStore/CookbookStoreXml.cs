@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace CookbookCaddy.DataStore
 {
@@ -21,6 +22,17 @@ namespace CookbookCaddy.DataStore
         {
             return GetRecipeByXmlDom();
         }
+
+        public override List<Recipe> GetRecipeList()
+        {
+            List<Recipe> recipelist = new List<Recipe>();
+            if (File.Exists(_fileName))
+            {
+                GetRecipeListByXDoc(ref recipelist);
+            }
+            return recipelist;
+        }
+
         private Recipe GetRecipeByXmlDom()
         {
             string request = WebServiceMock();
@@ -39,33 +51,80 @@ namespace CookbookCaddy.DataStore
 
         }
 
-        private Recipe GetRecipeByReader()
+        private void GetRecipeListByReader(ref List<Recipe> recipelist)
         {
-            Recipe newRecipe = new Recipe();
-            string request = WebServiceMock();
-            using (XmlReader reader = XmlReader.Create(new StringReader(request)))
+            using (FileStream fs = File.OpenRead(_fileName))
             {
-                reader.Read();
-                newRecipe.Title = reader.GetAttribute("Title");
-
-                reader.ReadToDescendant("Item");
-                List<string> items = new List<string>();
-
-
-                string newItem = reader.ReadInnerXml();
-
-                while (newItem != string.Empty)
+                using (XmlReader reader = XmlReader.Create(fs))
                 {
-                    items.Add(newItem);
-                    newItem = reader.ReadInnerXml();
+                    reader.ReadToFollowing("Cookbook");
+
+                    while (reader.ReadToFollowing("Recipe")) 
+                    {
+                        Recipe newRecipe = new Recipe();
+                        List<string> items = new List<string>();
+
+                        newRecipe.Title = reader.GetAttribute("Title");
+
+                        reader.ReadToDescendant("Ingredients");
+                        reader.ReadToDescendant("Item"); //what if there are no items?
+                        do
+                        {
+                            string newItem = reader.ReadElementContentAsString();
+                            items.Add(newItem);
+
+                        } while (reader.ReadToNextSibling("Item"));
+
+                        newRecipe.Items = items;
+
+                        recipelist.Add(newRecipe);
+                    }
                 }
-                newRecipe.Items = items;
-
             }
+        }
+        private void GetRecipeListByXmlDom(ref List<Recipe> recipelist)
+        {
+            string inputDocContents = File.ReadAllText(_fileName);
 
-            return newRecipe;
+            XmlDocument doc = new XmlDocument();
+
+            doc.LoadXml(inputDocContents);
+            XmlNode cookbook = doc.SelectSingleNode("Cookbook");
+            XmlNodeList recipeNodes = cookbook.SelectNodes("./Recipe");
+            if (recipeNodes.Count > 0)
+            {
+                foreach (XmlNode node in recipeNodes)
+                {
+                    Recipe newRecipe = new Recipe();
+                    newRecipe.Title = node.Attributes.GetNamedItem("Title").Value;
+                    newRecipe.Items = new List<string>();
+                    foreach (XmlNode item in node.SelectNodes("./Ingredients/Item"))
+                    {
+                        newRecipe.Items.Add(item.InnerText);
+                    }
+                    recipelist.Add(newRecipe);
+                }
+            }
         }
 
+        private void GetRecipeListByXDoc(ref List<Recipe> recipelist)
+        {
+            XDocument doc = XDocument.Load(_fileName);
+            foreach (XElement recipeElement in doc.Descendants("Recipe"))
+            {
+                Recipe newRecipe = new Recipe();
+                // newRecipe.Items = new List<string>();
+                newRecipe.Title = recipeElement.Attribute("Title").Value;
+
+                foreach (XElement item in recipeElement.Descendants("Item"))
+                {
+                    newRecipe.Items.Add(item.Value);
+                }
+
+                recipelist.Add(newRecipe);
+            }
+
+        }
 
         private string WebServiceMock()
         {
@@ -79,16 +138,17 @@ namespace CookbookCaddy.DataStore
 
         public override bool UpdateRecipe(Recipe updatedRecipe)
         {
-            if  (!File.Exists(_fileName))
+            if (!File.Exists(_fileName))
                 createXmlStore(_fileName);
 
             //remove this line to read document and update
-            return true;
-            
+            //return true;
+
             using (FileStream fs = File.OpenRead(_fileName))
             {
-                
+                ;
             }
+            return true;
         }
 
         private void createXmlStore(string fileName)

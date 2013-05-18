@@ -102,6 +102,7 @@
             this.listBoxRecipes.Name = "listBoxRecipes";
             this.listBoxRecipes.Size = new System.Drawing.Size(120, 160);
             this.listBoxRecipes.TabIndex = 6;
+            this.listBoxRecipes.SelectedIndexChanged += new System.EventHandler(this.listBoxRecipes_SelectedIndexChanged);
             // 
             // label3
             // 

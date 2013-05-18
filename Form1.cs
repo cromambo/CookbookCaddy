@@ -46,7 +46,7 @@ namespace CookbookCaddy
 
                 //todo: add new/edited recipe to cookbook here
             }
-           
+
         }
 
         private void EmptyRecipeDisplay()
@@ -85,7 +85,17 @@ namespace CookbookCaddy
 
         private void button1_Click(object sender, EventArgs e)
         {
-            myCookbook.UpdateRecipe(new Recipe());
+            //myCookbook.UpdateRecipe(new Recipe());
+            listBoxRecipes.Items.Clear();
+            foreach (Recipe rec in myCookbook.GetRecipeList())
+            {
+                listBoxRecipes.Items.Add(rec.Title);
+            }
+        }
+
+        private void listBoxRecipes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
 
 

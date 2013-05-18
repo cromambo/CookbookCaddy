@@ -14,6 +14,7 @@ namespace CookbookCaddy.DataStore
         }
 
         public abstract Recipe GetRecipe();
+        public abstract List<Recipe> GetRecipeList();
         public abstract bool SaveRecipe();
         public abstract bool UpdateRecipe(Recipe updatedRecipe);
         public abstract bool DeleteRecipe();
