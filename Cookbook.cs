@@ -9,7 +9,7 @@ namespace CookbookCaddy
 {
     class Cookbook
     {
-        private CookbookStoreBase recipeStorage = CookbookStoreBase.CreateCookbookStore("RecipeInput.xml");
+        private CookbookStoreBase recipeStorage = CookbookStoreBase.CreateCookbookStore("DataStore/RecipeInput.xml");
         private List<Recipe> recipelist;
 
         internal List<Recipe> GetRecipeList()

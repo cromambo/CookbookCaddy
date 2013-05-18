@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Cookbook>
+	<Recipe Title='Fava Bean Soup'>
+		<Ingredients>
+			<Item>Fava Beans</Item>
+			<Item>Water</Item>
+			<Item>Salt</Item>
+		</Ingredients>
+	</Recipe>
+	<Recipe Title='PBJ'>
+		<Ingredients>
+			<Item>Bread</Item>
+			<Item>Peanut Butter</Item>
+			<Item>Jelly</Item>
+		</Ingredients>
+	</Recipe>
+</Cookbook>
