@@ -59,7 +59,7 @@ namespace CookbookCaddy.DataStore
                 {
                     reader.ReadToFollowing("Cookbook");
 
-                    while (reader.ReadToFollowing("Recipe")) 
+                    while (reader.ReadToFollowing("Recipe"))
                     {
                         Recipe newRecipe = new Recipe();
                         List<string> items = new List<string>();
@@ -123,7 +123,36 @@ namespace CookbookCaddy.DataStore
 
                 recipelist.Add(newRecipe);
             }
+            SaveRecipeListByXDoc(ref recipelist); //testing
+        }
+        private void SaveRecipeListByXDoc(ref List<Recipe> recipelist)
+        {
+            string outputfile = "RecipeTestOutput.xml";
+            if (File.Exists(outputfile))
+            {
+                XDocument doc = XDocument.Load(_fileName);
 
+                XElement CookbookElement = new XElement("Cookbook");
+                foreach (Recipe recipe in recipelist)
+                {
+                    XAttribute recipetitle = new XAttribute("Title", recipe.Title);
+                    XElement RecipeElement = new XElement("Recipe", recipetitle);
+
+                    XElement IngredientElement = new XElement("Ingredient");
+
+                    foreach (var ingredient in recipe.Items)
+                    {
+                        XElement IngredientItemElement = new XElement("Item", ingredient);
+                        IngredientElement.Add(IngredientItemElement);
+
+                    }
+                    RecipeElement.Add(IngredientElement);
+                    CookbookElement.Add(RecipeElement);
+                }
+                XDocument outdoc = new XDocument(CookbookElement);
+
+                outdoc.Save(outputfile);
+            }
         }
 
         private string WebServiceMock()
